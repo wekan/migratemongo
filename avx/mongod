@@ -1,0 +1,8 @@
+#!/bin/bash
+cpuavx=$(cat /proc/cpuinfo | grep avx)
+if [ -z "${cpuavx}" ]; then
+  #echo "Your CPU does not support AVX. Using Qemu that supports AVX."
+  /snap/${SNAP_NAME}/current/migratemongo/avx/qemu-x86_64 /snap/${SNAP_NAME}/current/bin/mongod "$@"
+else
+  /snap/${SNAP_NAME}/current/bin/mongod "$@"
+fi
